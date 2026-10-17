@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const newGame = document.getElementsByClassName("btn");
     const status = document.getElementById("status");
 
+    status.classList.remove("you-won");
+
     const winningSquares = [
         [0, 1, 2],
         [3, 4, 5],
