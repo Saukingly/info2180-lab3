@@ -2,6 +2,8 @@ console.log(document);
 document.addEventListener("DOMContentLoaded", function() {
 
 
+
+
     let xo = false; //false means X; true means O
     let gameOver = false;
     const squares = document.getElementsByClassName("square");
@@ -29,9 +31,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             if (xo && (squares[i].textContent == "")) {
                 squares[i].textContent = "O";
+                square[i].classList.add("O");
                 xo = !xo;
             } else if (!xo && (squares[i].textContent == "")) {
                 squares[i].textContent = "X";
+                square[i].classList.add("X");
                 xo = !xo;
             }
             checkWinner();
@@ -62,6 +66,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 gameOver = true;
             }
         }
+    }
+
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].addEventListener("mouseover", function(event) {
+            status.classList.add("hover");
+        });
+
+        squares[i].addEventListener("mouseout", function(event) {
+            status.classList.remove("hover");
+        });
     }
 
 });
