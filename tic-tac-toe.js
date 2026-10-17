@@ -2,7 +2,10 @@ console.log(document);
 document.addEventListener("DOMContentLoaded", function() {
 
 
-
+    const board = document.getElementById("board");
+    for (const child of board.children) {
+        child.classList.add("square")
+    }
 
     let xo = false; //false means X; true means O
     let gameOver = false;
@@ -10,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const newGame = document.getElementsByClassName("btn");
     const status = document.getElementById("status");
 
-    status.classList.remove("you-won");
 
     const winningSquares = [
         [0, 1, 2],
@@ -22,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
         [0, 4, 8],
         [2, 4, 6]
     ]
-    console.log(squares.length);
 
     for (let i = 0; i < squares.length; i++) {
         squares[i].addEventListener("click", function(event) {
@@ -30,12 +31,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
             if (xo && (squares[i].textContent == "")) {
+                squares[i].classList.add("O");
                 squares[i].textContent = "O";
-                square[i].classList.add("O");
                 xo = !xo;
             } else if (!xo && (squares[i].textContent == "")) {
+                squares[i].classList.add("X");
                 squares[i].textContent = "X";
-                square[i].classList.add("X");
                 xo = !xo;
             }
             checkWinner();
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let i = 0; i < newGame.length; i++) {
         newGame[i].addEventListener("click", function(event) {
             for (let j = 0; j < squares.length; j++) {
+                squares[j].classList.remove("X", "O");
                 squares[j].textContent = "";
             }
             status.classList.remove("you-won");
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const first = squares[a].textContent;
             const second = squares[b].textContent;
             const third = squares[c].textContent;
-            if ((first === second) && (first === third) && (second === third) && !(first == "")) {
+            if ((first === second) && (first === third) && !(first == "")) {
                 status.classList.add("you-won");
                 status.textContent = "Congratulations! " + first + " is the Winner!";
                 gameOver = true;
@@ -70,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for (let i = 0; i < squares.length; i++) {
         squares[i].addEventListener("mouseover", function(event) {
-            status.classList.add("hover");
+            squares[i].classList.add("hover");
         });
 
         squares[i].addEventListener("mouseout", function(event) {
-            status.classList.remove("hover");
+            squares[i].classList.remove("hover");
         });
     }
 
